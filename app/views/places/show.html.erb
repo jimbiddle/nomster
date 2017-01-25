@@ -40,13 +40,15 @@
 
   <% end %>  
 
+  <br />
+
      </div>
 
     </div>
 
     <div class="clear"></div>
 
-
+<br />
 
 <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -55,8 +57,9 @@
 
         <div class="modal-content">
             <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Comment</h5
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
+              <span aria-hidden="true"></span>
             </button>
        </div>
        
@@ -65,6 +68,8 @@
         <%= f.input :message %>
         <%= f.input :rating, as: :select, collection: Comment::RATINGS %>
        </div>
+
+<br />
 
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -89,7 +94,7 @@
   <div class="clear"></div>
   
 
-    <div class="clear"></div>
+  <div class="clear"></div>
   
       <% @place.comments.each do |comment| %>
        <div class="col-12 col-sm-6">
@@ -105,21 +110,52 @@
       </div>
     <% end %>
 
-      <%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
-  <div class="modal-body">
-  <%= f.input :picture %>
-  <%= f.input :caption %>
-  <%= f.submit "Submit Photo", class: 'btn btn-primary' %>
-  <% end %>
+
+
+     
+          </div>
+
+      <div class="col-6 offset-1">
+        <% @place.photos.each do |photo| %>
+        <%= image_tag photo.picture %>
+        <br />
+        <%= photo.caption %>
+      <% end %>
+      </div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Submit Photo
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+              <%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
+          <div class="modal-body">
+          <%= f.input :picture %>
+          <%= f.input :caption %>
+          </div>
+  
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= f.submit "Submit Photo", class: 'btn btn-primary' %>
+        </div>
+        <% end %>
+    </div>
   </div>
-
-  <div>
-  <% @place.photos.each do |photo| %>
-  <%= image_tag photo.picture %>
-  <%= photo.caption %>
- <% end %>
+</div>
 
 
-  </div>
 
   
